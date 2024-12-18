@@ -12,6 +12,7 @@
 		C87FEA9E2D122B2D00D9174D /* sensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87FEA9D2D122B2D00D9174D /* sensors.cpp */; };
 		C87FEAA12D122B3700D9174D /* workers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87FEAA02D122B3700D9174D /* workers.cpp */; };
 		C87FEAA42D122B4A00D9174D /* communicators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87FEAA32D122B4A00D9174D /* communicators.cpp */; };
+		C8FD2AEC2D132DD500D558DD /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8FD2AEB2D132DD500D558DD /* engine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,8 @@
 		C87FEAA22D122B4A00D9174D /* communicators.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = communicators.hpp; sourceTree = "<group>"; };
 		C87FEAA32D122B4A00D9174D /* communicators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = communicators.cpp; sourceTree = "<group>"; };
 		C89914A52D121F82004C8EEC /* plants_watersystem */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = plants_watersystem; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8FD2AEB2D132DD500D558DD /* engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
+		C8FD2AED2D132DE900D558DD /* engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = engine.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +57,7 @@
 		C87FEA902D12205E00D9174D /* include */ = {
 			isa = PBXGroup;
 			children = (
+				C8FD2AED2D132DE900D558DD /* engine.hpp */,
 				C87FEA962D1220B000D9174D /* globals.hpp */,
 			);
 			path = include;
@@ -63,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				C87FEA972D12239D00D9174D /* main.cpp */,
+				C8FD2AEB2D132DD500D558DD /* engine.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87FEA9E2D122B2D00D9174D /* sensors.cpp in Sources */,
+				C8FD2AEC2D132DD500D558DD /* engine.cpp in Sources */,
 				C87FEAA42D122B4A00D9174D /* communicators.cpp in Sources */,
 				C87FEAA12D122B3700D9174D /* workers.cpp in Sources */,
 				C87FEA982D12239D00D9174D /* main.cpp in Sources */,

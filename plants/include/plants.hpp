@@ -9,8 +9,8 @@
 #define plants_hpp
 
 #include "globals.hpp"
-#include "sensors.cpp"
-#include "workers.cpp"
+#include "sensors.hpp"
+#include "workers.hpp"
 
 class Plant
 {

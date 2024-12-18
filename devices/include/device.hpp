@@ -16,9 +16,9 @@ template<typename T> class Device
 {
 private:
     const int deviceID;
-    volatile State runState;
     const T deviceType;
 protected:
+    volatile State runState;
     time_t now;
     tm *ltm;
 public:

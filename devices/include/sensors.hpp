@@ -12,6 +12,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <utility>
 #include "globals.hpp"
 #include "device.hpp"
 
@@ -22,9 +23,9 @@ private:
     std::map<std::string, std::map<std::string, uint32_t>>::iterator itHist;
     std::map<std::string, uint32_t>::iterator itTimed;
 
-    void GetRawBuffer(uint32_t* buffer, int bufferSize);
-    void GetRawBuffer(char* buffer, int bufferSize);
-    void GetRawBuffer(std::vector<uint32_t>* buffer);
+    size_t GetRawBuffer(uint32_t* buffer, int bufferSize);
+    size_t GetRawBuffer(char* buffer[], int bufferSize);
+    size_t GetRawBuffer(std::vector<uint32_t>* buffer);
 public:
     Sensor(int sensorID, SensorType sensorType);
     virtual void Start() override;
@@ -32,10 +33,10 @@ public:
     virtual bool HalfCptCallback() = 0;
     virtual bool FullCptCallback() = 0;
 
-    std::map<std::string, std::map<std::string, uint32_t>> GetHistoryData();
-    std::map<std::string, uint32_t> GetTimedData(std::string date);
-    uint32_t GetSingleData(std::string date, std::string time);
-    template<typename T> void GetRawBuffer(T* buffer, int bufferSize);
+    std::map<std::string, std::map<std::string, uint32_t>>* GetHistoryData();
+    std::map<std::string, uint32_t>* GetTimedData(std::string date);
+    uint32_t* GetSingleData(std::string date, std::string time);
+    template<typename T> size_t GetRawBuffer(T* buffer, int bufferSize);
 
     ~Sensor();
 };

@@ -24,7 +24,7 @@ public:
 
     virtual void Start() override;
     virtual void DoWork() = 0;
-    void ScheduleWork(std::string date, std::string time);
+    void ScheduleWork(std::string date, std::string time, std::string end);
 
     ~Worker();
 };

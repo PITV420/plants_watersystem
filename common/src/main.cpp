@@ -1,7 +1,8 @@
 #include <iostream>
+#include "sensors.hpp"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    TemperatureSensor* firstSensor = new TemperatureSensor(0);
+    delete firstSensor;
     return 0;
 }

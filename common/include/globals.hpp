@@ -12,10 +12,12 @@
 #define TX_BUFFER 1024
 #define RX_BUFFER 1024
 
-#if __cplusplus >= 202002L
+#if __cplusplus > 201703L
 #define CPP20
-#elif __cplusplus >= 201703L
+#elif __cplusplus > 201402L
 #define CPP17
+#elif _cplusplus > 199711L
+#define CPP11
 #else
 #define CPPBASIC
 #endif

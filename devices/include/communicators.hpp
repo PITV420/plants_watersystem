@@ -23,11 +23,12 @@ private:
     std::map<std::string, uint32_t>::iterator itTimed;
 
     void AcquireData(uint32_t* data, int dataSize);
-    void AcquireData(char* data, int dataSize);
+    void AcquireData(char* data[], int dataSize);
     void AcquireData(std::vector<uint32_t>* data);
 public:
     Communicator(int communicatorID, CommunicatorType communicatorType);
-    virtual void Start() override;
+    virtual void Start();
+    virtual void FlushBuffer();
     virtual void CommuteData() = 0;
     virtual bool HalfCptCallback() = 0;
     virtual bool FullCptCallback() = 0;

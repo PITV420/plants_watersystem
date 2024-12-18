@@ -5,7 +5,6 @@
 //  Created by Piotr Cieślik on 17/12/24.
 //
 
-#include <concepts>
 #include "sensors.hpp"
 
 Sensor::Sensor(int sensorID, SensorType sensorType) : Device<SensorType>(sensorID, sensorType)

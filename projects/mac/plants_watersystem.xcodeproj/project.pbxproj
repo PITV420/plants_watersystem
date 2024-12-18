@@ -12,6 +12,7 @@
 		C87FEA9E2D122B2D00D9174D /* sensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87FEA9D2D122B2D00D9174D /* sensors.cpp */; };
 		C87FEAA12D122B3700D9174D /* workers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87FEAA02D122B3700D9174D /* workers.cpp */; };
 		C87FEAA42D122B4A00D9174D /* communicators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87FEAA32D122B4A00D9174D /* communicators.cpp */; };
+		C8FD2AE92D132A7C00D558DD /* plants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8FD2AE82D132A7C00D558DD /* plants.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,8 @@
 		C87FEAA22D122B4A00D9174D /* communicators.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = communicators.hpp; sourceTree = "<group>"; };
 		C87FEAA32D122B4A00D9174D /* communicators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = communicators.cpp; sourceTree = "<group>"; };
 		C89914A52D121F82004C8EEC /* plants_watersystem */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = plants_watersystem; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8FD2AE72D132A7C00D558DD /* plants.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = plants.hpp; sourceTree = "<group>"; };
+		C8FD2AE82D132A7C00D558DD /* plants.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = plants.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 		C899149C2D121F82004C8EEC = {
 			isa = PBXGroup;
 			children = (
+				C8FD2AE62D132A6900D558DD /* plants */,
 				C87FEA922D12205E00D9174D /* common */,
 				C87FEA952D12205E00D9174D /* devices */,
 				C89914A62D121F82004C8EEC /* Products */,
@@ -125,6 +129,32 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		C8FD2AE42D132A6900D558DD /* include */ = {
+			isa = PBXGroup;
+			children = (
+				C8FD2AE72D132A7C00D558DD /* plants.hpp */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		C8FD2AE52D132A6900D558DD /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C8FD2AE82D132A7C00D558DD /* plants.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		C8FD2AE62D132A6900D558DD /* plants */ = {
+			isa = PBXGroup;
+			children = (
+				C8FD2AE42D132A6900D558DD /* include */,
+				C8FD2AE52D132A6900D558DD /* src */,
+			);
+			name = plants;
+			path = /Users/pitv/Documents/XCODE/plants_watersystem/plants;
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 
@@ -187,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87FEA9E2D122B2D00D9174D /* sensors.cpp in Sources */,
+				C8FD2AE92D132A7C00D558DD /* plants.cpp in Sources */,
 				C87FEAA42D122B4A00D9174D /* communicators.cpp in Sources */,
 				C87FEAA12D122B3700D9174D /* workers.cpp in Sources */,
 				C87FEA982D12239D00D9174D /* main.cpp in Sources */,

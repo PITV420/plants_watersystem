@@ -8,8 +8,6 @@
 #ifndef workers_hpp
 #define workers_hpp
 
-#include <stdio.h>
-#include <string>
 #include "device.hpp"
 #include "globals.hpp"
 

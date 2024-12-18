@@ -8,6 +8,14 @@
 #ifndef globals_h
 #define globals_h
 
+#include <concepts>
+#include <ctime>
+#include <map>
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <utility>
+
 #define SENSOR_BUFFER 1024
 #define TX_BUFFER 1024
 #define RX_BUFFER 1024

@@ -8,10 +8,6 @@
 #ifndef communicators_hpp
 #define communicators_hpp
 
-#include <stdio.h>
-#include <vector>
-#include <string>
-#include <map>
 #include "device.hpp"
 #include "globals.hpp"
 

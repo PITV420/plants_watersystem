@@ -8,8 +8,6 @@
 #ifndef device_hpp
 #define device_hpp
 
-#include <stdio.h>
-#include <ctime>
 #include "globals.hpp"
 
 template<typename T> class Device

@@ -8,11 +8,6 @@
 #ifndef sensors_hpp
 #define sensors_hpp
 
-#include <stdio.h>
-#include <map>
-#include <string>
-#include <vector>
-#include <utility>
 #include "globals.hpp"
 #include "device.hpp"
 

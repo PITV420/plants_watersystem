@@ -37,3 +37,9 @@
 .vscode
 *.vscode
 *.xcuserdatad
+.xcworkspace
+*.xcworkspace
+**.xcworkspace
+**projects/mac/plants_watersystem.xcodeproj/project.xcworkspace
+**/projects/mac/plants_watersystem.xcodeproj/project.xcworkspace
+projects/mac/plants_watersystem.xcodeproj/project.xcworkspace/xcuserdata/PITV.xcuserdatad/UserInterfaceState.xcuserstate

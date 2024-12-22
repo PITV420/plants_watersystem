@@ -8,7 +8,7 @@
 #include "engine.hpp"
 #include <stdio.h>
 
-Engine* Engine::instance = nullptr;
+Engine* Engine::eInstance = nullptr;
 
 Engine::Engine()
 {
@@ -17,8 +17,8 @@ Engine::Engine()
 
 Engine* Engine::GetInstance()
 {
-    if (!instance)
-        instance = new Engine();
+    if (!eInstance)
+        eInstance = new Engine();
     
-    return instance;
+    return eInstance;
 }

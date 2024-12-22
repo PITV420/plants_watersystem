@@ -13,26 +13,19 @@
 
 class Worker : public Device<WorkerType>
 {
-private:
-    std::string scheduleDate;
-    std::string startTime;
-    std::string endTime;
 public:
     Worker(int workerID, WorkerType workerType);
-
     virtual void Start() override;
     virtual void DoWork() = 0;
-    void ScheduleWork(std::string date, std::string time, std::string end);
-
     ~Worker();
 };
 
-class Pump : public Worker
+class PumpWorker : public Worker
 {
 public:
-    Pump(int workerID);
+    PumpWorker(int workerID);
     virtual void DoWork() override;
-    ~Pump();
+    ~PumpWorker();
 };
 
 #endif /* workers_hpp */

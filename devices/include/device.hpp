@@ -13,22 +13,18 @@
 template<typename T> class Device
 {
 private:
-    const int deviceID;
-    const T deviceType;
+    const int ciDeviceID;
+    const T tDeviceType;
 protected:
-    volatile State runState;
-    time_t now;
-    tm *ltm;
+    volatile State sRunState;
 public:
     Device(int deviceID, T deviceType);
-    
     virtual void Start() = 0;
     virtual void Stop();
-
     const int GetID();
     State GetState();
     T GetType();
-
+    Device* FindById(int deviceID);
     ~Device();
 };
 

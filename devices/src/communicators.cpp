@@ -10,14 +10,12 @@
 Communicator::Communicator(int communicatorID, CommunicatorType communicatorType) : Device<CommunicatorType>(communicatorID, communicatorType)
 {
     printf("THIS IS COMMUNICATOR ABSTRACTION CONSTRUCTOR\n");
+    vIt = vBuffer.begin();
 }
 
-void Communicator::AcquireData(uint32_t* data, int dataSize)
+#if 0
+template<isUint U> void Communicator::AcquireData(U* data, int dataSize)
 {
-    now = time(0);
-    ltm = localtime(&now);
-    int i = 0;
-    
     std::string year = std::to_string(1900 + ltm->tm_year);
     std::string month = 1 + ltm->tm_mon < 10 ? "0" + std::to_string(1 + ltm->tm_mon) : std::to_string(1 + ltm->tm_mon);
     std::string day = ltm->tm_mday < 10 ? "0" + std::to_string(ltm->tm_mday) : std::to_string(ltm->tm_mday);
@@ -30,24 +28,19 @@ void Communicator::AcquireData(uint32_t* data, int dataSize)
         historyData.insert({day + month + year, {{hour + minute, data[0]}}});
         itHist = historyData.end();
         itHist--;
-        i++;
     }
 
-    for (; i < dataSize; i++)
+    for (std::array dataArr = std::to_array<uint32_t>(data); auto &e : dataArr)
     {
         hour = 5 + ltm->tm_hour < 10 ? "0" + std::to_string(5 + ltm->tm_hour) : std::to_string(5 +ltm->tm_hour);
         minute = 30 + ltm->tm_min < 10 ? "0" + std::to_string(30 + ltm->tm_min) : std::to_string(30 + ltm->tm_min);
 
-        itHist->second.insert_or_assign(hour + minute, data[i]);
+        itHist->second.insert_or_assign(hour + minute, e);
     }
 }
 
-void Communicator::AcquireData(char* data[], int dataSize)
+template<isChar U> void Communicator::AcquireData(U* data[], int dataSize)
 {
-    now = time(0);
-    ltm = localtime(&now);
-    int i = 0;
-    
     std::string year = std::to_string(1900 + ltm->tm_year);
     std::string month = 1 + ltm->tm_mon < 10 ? "0" + std::to_string(1 + ltm->tm_mon) : std::to_string(1 + ltm->tm_mon);
     std::string day = ltm->tm_mday < 10 ? "0" + std::to_string(ltm->tm_mday) : std::to_string(ltm->tm_mday);
@@ -57,27 +50,22 @@ void Communicator::AcquireData(char* data[], int dataSize)
     itHist = historyData.find(day + month + year);
     if (itHist == historyData.end())
     {
-        historyData.insert({day + month + year, {{hour + minute, static_cast<uint32_t>(*data[0])}}});
+        historyData.insert({day + month + year, {{hour + minute, data[0]}}});
         itHist = historyData.end();
         itHist--;
-        i++;
     }
 
-    for (; i < dataSize; i++)
+    for (std::array dataArr = std::to_array<char*>(data); auto &e : dataArr)
     {
         hour = 5 + ltm->tm_hour < 10 ? "0" + std::to_string(5 + ltm->tm_hour) : std::to_string(5 +ltm->tm_hour);
         minute = 30 + ltm->tm_min < 10 ? "0" + std::to_string(30 + ltm->tm_min) : std::to_string(30 + ltm->tm_min);
 
-        itHist->second.insert_or_assign(hour + minute, static_cast<uint32_t>(*data[i]));
+        itHist->second.insert_or_assign(hour + minute, static_cast<uint32_t>(e));
     }
 }
 
-void Communicator::AcquireData(std::vector<uint32_t>* data)
+template<isVector U> void Communicator::AcquireData(U* data)
 {
-        now = time(0);
-    ltm = localtime(&now);
-    int i = 0;
-    
     std::string year = std::to_string(1900 + ltm->tm_year);
     std::string month = 1 + ltm->tm_mon < 10 ? "0" + std::to_string(1 + ltm->tm_mon) : std::to_string(1 + ltm->tm_mon);
     std::string day = ltm->tm_mday < 10 ? "0" + std::to_string(ltm->tm_mday) : std::to_string(ltm->tm_mday);
@@ -87,65 +75,127 @@ void Communicator::AcquireData(std::vector<uint32_t>* data)
     itHist = historyData.find(day + month + year);
     if (itHist == historyData.end())
     {
-        historyData.insert({day + month + year, {{hour + minute, data->at(0)}}});
+        historyData.insert({day + month + year, {{hour + minute, data[0]}}});
         itHist = historyData.end();
         itHist--;
-        i++;
     }
 
-    for (; i < data->size(); i++)
+    for (auto &e : data)
     {
         hour = 5 + ltm->tm_hour < 10 ? "0" + std::to_string(5 + ltm->tm_hour) : std::to_string(5 +ltm->tm_hour);
         minute = 30 + ltm->tm_min < 10 ? "0" + std::to_string(30 + ltm->tm_min) : std::to_string(30 + ltm->tm_min);
 
-        itHist->second.insert_or_assign(hour + minute, data->at(i));
+        itHist->second.insert_or_assign(hour + minute, e);
     }
 }
+
+#else
+void Communicator::AcquireData(uint32_t* uData, int dataSize)
+{
+    for (int i = 0; i < dataSize; i++)
+    {
+        *vIt = uData[i];
+        vIt++;
+        if (vIt == vBuffer.end())
+            vIt = vBuffer.begin();
+    }
+}
+
+void Communicator::AcquireData(char* cData[], int dataSize)
+{
+    for (int i = 0; i < dataSize; i++)
+    {
+        *vIt = static_cast<uint32_t>(*cData[i]);
+        vIt++;
+        if (vIt == vBuffer.end())
+            vIt = vBuffer.begin();
+    }
+}
+
+void Communicator::AcquireData(std::vector<uint32_t>* vData)
+{
+    for (auto &value : *vData)
+    {
+        *vIt = value;
+        vIt++;
+        if (vIt == vBuffer.end())
+            vIt = vBuffer.begin();
+    }
+}
+#endif
 
 void Communicator::Start()
 {
-    runState = State::Running;
+    sRunState = State::Running;
 
-    while (runState == State::Running)
+    while (sRunState == State::Running)
     {
         CommuteData();
     }
 }
 
-void Communicator::FlushBuffer()
-{
-    historyData.clear();
-}
-
-template<typename T> void Communicator::AcquireData(T* data, int dataSize)
+template<typename T> void Communicator::AcquireData(T* tData, int dataSize)
 {
     if (std::is_integral_v<T> && std::is_unsigned_v<T>)
-        AcquireData((uint32_t*)data, dataSize);
-    else if (std::is_same_v<T, char*>)
-        AcquireData((char**)data, dataSize);
-    else if (std::is_same_v<T, std::vector<uint32_t>*>)
-        AcquireData(static_cast<std::vector<uint32_t>*>(data));
+        AcquireData(static_cast<uint32_t*>(tData), dataSize);
+    else if (std::is_same_v<T, char>)
+        AcquireData(static_cast<char**>(tData), dataSize);
+    else if (std::is_array_v<T>)
+        AcquireData(static_cast<std::vector<uint32_t>*>(tData));
 }
 
-void Communicator::AcquireHistoryData(std::map<std::string, std::map<std::string, uint32_t>> historyData)
+void Communicator::FlushBuffer()
 {
-    this->historyData.swap(historyData);
+    vBuffer.clear();
+    vIt = vBuffer.begin();
 }
 
-void Communicator::AcquireTimedData(std::map<std::string, uint32_t> timedData, std::string date)
+template<typename U> U Communicator::GetSingleData(int position /*= -1*/)
 {
-    historyData.insert_or_assign(date, timedData);
-}
-
-void Communicator::AcquireSingleData(std::string date, std::string time, uint32_t data)
-{
-    auto it = historyData.find(date);
-    if (it == historyData.end())
+    uint32_t value = position < 0 ? *vIt : vBuffer[position];
+    if (std::is_integral_v<U> && std::is_unsigned_v<U>)
+        return (U)(value);
+    else if (std::is_same_v<U, char>)
     {
-        historyData.insert({date, {{time, data}}});
+        return (U)(*std::to_string(value).c_str());
     }
-    else
-        it->second.insert_or_assign(time, data);
+    return -1;
+}
+
+template<typename U> size_t Communicator::GetRawBuffer(U* retBuff, int dataSize /*= -1*/)
+{
+    size_t i = 0;
+
+    if (std::is_integral_v<U> && std::is_unsigned_v<U> && dataSize > -1)
+    {
+        uint32_t* uData = static_cast<uint32_t*>(retBuff);
+
+        for (; i < dataSize; i++)
+            uData[i] = vBuffer[i];
+
+        return i;
+    }
+    else if (std::is_same_v<U, char*> && dataSize > -1)
+    {
+        char** cData = static_cast<char**>(retBuff);
+
+        for (; i < dataSize; i++)
+            cData[i] = (char*)std::to_string(vBuffer[i]).c_str();
+
+        return i;
+    }
+    else if (std::is_array_v<U>)
+    {
+        for (auto &elem : static_cast<std::vector<uint32_t>>(*retBuff))
+        {
+            elem = vBuffer[i];
+            i++;
+        }
+
+        return i;
+    }
+
+    return dataSize;
 }
 
 Communicator::~Communicator()
@@ -155,25 +205,34 @@ Communicator::~Communicator()
 
 Receiver::Receiver(int receiverID) : Communicator(receiverID, CommunicatorType::Receiver)
 {
-    memset(buffer, 0, RX_BUFFER);
-    bufferPosition = 0;
+    memset(uBuffer, 0, RX_BUFFER);
+    uBufferPosition = 0;
     printf("THIS IS RECEIVER CONSTRUCTOR\n");
+}
+
+void Receiver::FlushBuffer()
+{
+    memset(uBuffer, 0, RX_BUFFER);
+    uBufferPosition = 0;
+    Communicator::FlushBuffer();
 }
 
 void Receiver::CommuteData()
 {
     for (int i = 0; i < RX_BUFFER; i++)
     {
-        // TODO
-        bufferPosition++;
-        if (bufferPosition >= RX_BUFFER)
-            bufferPosition = 0;
+        uint32_t sendValue = GetSingleData<uint32_t>(uBufferPosition);
+        // TODO: Send Data (single vs buffer - look HAL docs)
+        uBufferPosition++;
+        if (uBufferPosition >= RX_BUFFER)
+            uBufferPosition = 0;
     }
 }
 
 bool Receiver::HalfCptCallback()
 {
-    if (bufferPosition >= RX_BUFFER / 2)
+    // TODO get HAL callbacks
+    if (uBufferPosition >= RX_BUFFER / 2)
         return true;
 
     return false;
@@ -181,7 +240,8 @@ bool Receiver::HalfCptCallback()
 
 bool Receiver::FullCptCallback()
 {
-    if (bufferPosition >= RX_BUFFER)
+    // TODO get HAL callbacks
+    if (uBufferPosition >= RX_BUFFER)
         return true;
 
     return false;
@@ -194,25 +254,33 @@ Receiver::~Receiver()
 
 Transmitter::Transmitter(int receiverID) : Communicator(receiverID, CommunicatorType::Transmitter)
 {
-    memset(buffer, 0, RX_BUFFER);
-    bufferPosition = 0;
+    memset(uBuffer, 0, RX_BUFFER);
+    uBufferPosition = 0;
     printf("THIS IS TRANSMITTER CONSTRUCTOR\n");
+}
+
+void Transmitter::FlushBuffer()
+{
+    memset(uBuffer, 0, RX_BUFFER);
+    uBufferPosition = 0;
+    Communicator::FlushBuffer();
 }
 
 void Transmitter::CommuteData()
 {
     for (int i = 0; i < RX_BUFFER; i++)
     {
-        // TODO
-        bufferPosition++;
-        if (bufferPosition >= RX_BUFFER)
-            bufferPosition = 0;
+        uint32_t sendValue = GetSingleData<uint32_t>(uBufferPosition);
+        // TODO: Send Data (single vs buffer - look HAL docs)
+        uBufferPosition++;
+        if (uBufferPosition >= RX_BUFFER)
+            uBufferPosition = 0;
     }
 }
 
 bool Transmitter::HalfCptCallback()
 {
-    if (bufferPosition >= RX_BUFFER / 2)
+    if (uBufferPosition >= RX_BUFFER / 2)
         return true;
 
     return false;
@@ -220,7 +288,7 @@ bool Transmitter::HalfCptCallback()
 
 bool Transmitter::FullCptCallback()
 {
-    if (bufferPosition >= RX_BUFFER)
+    if (uBufferPosition >= RX_BUFFER)
         return true;
 
     return false;

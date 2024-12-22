@@ -58,4 +58,13 @@ typedef enum eWorkerType
     Dryier
 } WorkerType;
 
+#ifdef CPP20
+template<typename U>
+concept isUint = std::is_integral_v<U> && std::is_unsigned_v<U>;
+template<typename U>
+concept isChar = std::is_same_v<U, char*>;
+template<typename U>
+concept isVector = std::is_array_v<U>;
+#endif
+
 #endif /* globals_h */

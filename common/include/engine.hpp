@@ -13,7 +13,7 @@
 class Engine
 {
 private:
-    static Engine* instance;
+    static Engine* eInstance;
     Engine();
 #ifdef CPPBASIC
     Engine(Engine &const);

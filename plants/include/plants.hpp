@@ -11,6 +11,7 @@
 #include "globals.hpp"
 #include "sensors.hpp"
 #include "workers.hpp"
+#include "utilities.hpp"
 
 class Plant
 {
@@ -24,12 +25,8 @@ private:
     std::vector<Worker*> vWorkers;
     int iWorkersNum;
 
-    std::map<int, int> mSensorWorkerMap;
-
-    time_t tNow;
-    tm* tLtm;
-
-    std::map<std::map<int, std::string>, std::map<std::string, uint32_t>> mSensorMeanHourData;
+    std::map<Sensor*, Worker*> mSensorWorkerMap;
+    std::map<Sensor*, std::map<std::string, std::map<std::string, uint32_t>>> mSensorMeanHourData;
 public:
     Plant(std::string name, int plantId);
     int AddSensor(SensorType sensorType, uint32_t lowValue, uint32_t highValue);

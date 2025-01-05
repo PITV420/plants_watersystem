@@ -30,6 +30,10 @@
 #define CPPBASIC
 #endif
 
+#ifndef __STM32F4xx_HAL_H
+#define SIMULATION
+#endif
+
 typedef enum eState
 {
     Idle = 0,
